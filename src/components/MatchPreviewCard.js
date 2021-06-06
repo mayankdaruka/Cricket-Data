@@ -1,5 +1,6 @@
 import styled, { ThemeProvider } from "styled-components";
 import ImageIcon from "@material-ui/icons/Image";
+import SportsCricketIcon from "@material-ui/icons/SportsCricket";
 
 const MatchCard = styled.div`
   display: flex;
@@ -18,7 +19,9 @@ const MatchTitle = styled.div`
   vertical-align: bottom;
   flex: 1;
   font-weight: 800;
-  padding: 7px;
+  padding-top: 7px;
+  padding-left: 7px;
+  padding-right: 7px;
   font-size: 20px;
 `;
 
@@ -39,13 +42,13 @@ const MatchFlagsAndButton = styled.div`
 `;
 
 const MatchFlags = styled.div`
-  flex: 2;
+  flex: 3;
   display: flex;
   flex-direction: column;
 `;
 
 const DetailsItem = styled.div`
-  flex: 1;
+  flex: 2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,6 +70,43 @@ const DetailsButton = styled.button`
     transform: scale(0.93);
   }
 `;
+
+const ScoresContainer = styled.div`
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+`;
+
+const MatchScore = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  /* color: ${(props) => props.theme.color}; */
+  font-size: 18px;
+`;
+
+const MatchOvers = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: ${(props) => props.theme.color};
+  font-weight: 600;
+  font-size: 15px;
+`;
+
+const MatchScoreDetails = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 const MatchResult = styled.div`
   flex: 1;
   font-weight: 600;
@@ -78,7 +118,7 @@ const MatchResult = styled.div`
 const FlagNamesGrid = styled.div`
   flex: 1;
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 2fr 3fr;
   align-items: center;
   /* flex-grow: 1; */
 `;
@@ -96,7 +136,7 @@ const MatchDateTime = styled.div`
 `;
 
 export default function MatchPreviewCard({ matchDetails }) {
-  const matchDate = new Date(matchDetails.date);
+  const matchDate = new Date(matchDetails.startDateTime);
   const month = matchDate.toLocaleString("default", { month: "long" });
   const hours = matchDate.getHours();
   const minutes = matchDate.getMinutes();
@@ -126,12 +166,12 @@ export default function MatchPreviewCard({ matchDetails }) {
     <ThemeProvider theme={{ font: "Dosis", color: "#009954" }}>
       <MatchCard>
         <MatchTitle>
-          {matchDetails.match_title.length > 95
-            ? matchDetails.match_title.substring(0, 90) + "..."
-            : matchDetails.match_title}
+          {matchDetails.series.name.length > 95
+            ? matchDetails.series.name.substring(0, 90) + "..."
+            : matchDetails.series.name}
         </MatchTitle>
         <MatchSubTitle>
-          {matchDetails.match_subtitle + ", "}
+          {matchDetails.status + ", "}
           <MatchDateTime>
             {month} {matchDate.getUTCDate()} {matchDate.getFullYear() + ", "}
           </MatchDateTime>
@@ -139,12 +179,14 @@ export default function MatchPreviewCard({ matchDetails }) {
         </MatchSubTitle>
         <MatchFlagsAndButton>
           <MatchFlags>
-            {[matchDetails.home.name, matchDetails.away.name].map((name) => (
+            {[matchDetails.homeTeam, matchDetails.awayTeam].map((team) => (
               <FlagNamesGrid>
                 <div style={{ justifySelf: "center" }}>
-                  {countryCodeMap?.[name] ? (
+                  {countryCodeMap?.[team.name] ? (
                     <img
-                      src={`https://www.countryflags.io/${countryCodeMap[name]}/shiny/64.png`}
+                      src={`https://www.countryflags.io/${
+                        countryCodeMap[team.name]
+                      }/shiny/64.png`}
                     />
                   ) : (
                     <NoImageAvailable>
@@ -152,19 +194,58 @@ export default function MatchPreviewCard({ matchDetails }) {
                     </NoImageAvailable>
                   )}
                 </div>
-                <div style={{ textAlign: "left", fontWeight: 600 }}>{name}</div>
+                <div
+                  style={{
+                    textAlign: "left",
+                    fontWeight: 600,
+                  }}
+                >
+                  <div style={{ display: "inline-block", marginRight: "5px" }}>
+                    {team.name}
+                  </div>
+                  {matchDetails.status === "LIVE" && team.isBatting && (
+                    <div style={{ display: "inline-block" }}>
+                      <SportsCricketIcon />
+                    </div>
+                  )}
+                </div>
               </FlagNamesGrid>
             ))}
           </MatchFlags>
-          <DetailsItem>
+          {/* <DetailsItem>
             <DetailsButton>See Match Details</DetailsButton>
-          </DetailsItem>
+          </DetailsItem> */}
+          {matchDetails.scores ? (
+            <ScoresContainer>
+              <MatchScoreDetails>
+                <MatchScore>
+                  {matchDetails.scores.homeScore ?? "Yet to Bat"}
+                </MatchScore>
+                <MatchOvers>
+                  {matchDetails.scores.homeOvers ?? "Yet to Bat"}
+                </MatchOvers>
+              </MatchScoreDetails>
+              <MatchScoreDetails>
+                <MatchScore>
+                  {matchDetails.scores.awayScore ?? "Yet to Bat"}
+                </MatchScore>
+                <MatchOvers>
+                  {matchDetails.scores.awayOvers ?? "Yet to Bat"}
+                </MatchOvers>
+              </MatchScoreDetails>
+            </ScoresContainer>
+          ) : (
+            <ScoresContainer>
+              <MatchOvers>Yet to Bat</MatchOvers>
+              <MatchOvers>Yet to Bat</MatchOvers>
+            </ScoresContainer>
+          )}
         </MatchFlagsAndButton>
-        <MatchResult>
-          {matchDetails.result.startsWith("Starts at")
-            ? "Match yet to begin"
-            : matchDetails.result}
-        </MatchResult>
+        {matchDetails.matchSummaryText ? (
+          <MatchResult>{matchDetails.matchSummaryText}</MatchResult>
+        ) : (
+          <MatchResult> Match starts at {time} </MatchResult>
+        )}
       </MatchCard>
     </ThemeProvider>
   );
