@@ -11,6 +11,13 @@ const MatchCard = styled.div`
   border-radius: 0.5em;
   background: rgb(235, 235, 235);
   font-family: ${(props) => props.theme.font};
+  &:hover {
+    background-color: #dbdbdb;
+    transition-duration: 0.4s;
+  }
+  &:active {
+    transform: scale(0.93);
+  }
 `;
 
 const MatchTitle = styled.div`
@@ -163,7 +170,7 @@ export default function MatchPreviewCard({ matchDetails }) {
   };
 
   return (
-    <ThemeProvider theme={{ font: "Dosis", color: "#009954" }}>
+    <ThemeProvider theme={{ font: "Dosis", color: "#9b02a1" }}>
       <MatchCard>
         <MatchTitle>
           {matchDetails.series.name.length > 95
