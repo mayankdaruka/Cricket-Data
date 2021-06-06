@@ -39,6 +39,9 @@ const MatchCardsWrapper = styled.div`
 export default function Header() {
   const fixtures = useSelector((state) => state?.matches ?? {});
   const [localFilter, setLocalFilter] = useState("ALL");
+  const filteredFixtures = Object.values(fixtures).filter(
+    (fixture) => fixture.status === localFilter || localFilter === "ALL"
+  );
   const dimWidth = window.innerWidth;
   console.log(dimWidth);
   const routingData = [
@@ -67,11 +70,6 @@ export default function Header() {
     ["Upcoming Fixtures", "UPCOMING"],
   ];
 
-  const handleFilter = (status) => {
-    setLocalFilter(status);
-  };
-  console.log("hey");
-
   return (
     <AppBar>
       <HeaderToolbar>
@@ -94,7 +92,13 @@ export default function Header() {
               {...{ color: "inherit" }}
               onClick={() => setLocalFilter(status)}
             >
-              {label}
+              {label} (
+              {status === "ALL"
+                ? Object.keys(fixtures).length
+                : Object.values(fixtures).filter(
+                    (fixture) => fixture.status === status
+                  ).length}
+              )
             </HeaderButton>
           ))}
         </div>
@@ -102,14 +106,9 @@ export default function Header() {
         <div style={{ color: "black" }}>
           <ScrollContainer dimWidth>
             <ScrollMenu
-              data={Object.values(fixtures)
-                .filter(
-                  (fixture) =>
-                    fixture.status === localFilter || localFilter === "ALL"
-                )
-                .map((fixture) => (
-                  <MatchPreviewCard matchDetails={fixture} />
-                ))}
+              data={filteredFixtures.map((fixture) => (
+                <MatchPreviewCard matchDetails={fixture} />
+              ))}
             />
           </ScrollContainer>
         </div>
