@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import { AppBar, Toolbar, Button } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useStore } from "react-redux";
 import MatchPreviewCard from "./MatchPreviewCard";
 import ScrollMenu from "react-horizontal-scrolling-menu";
+import { useState } from "react";
 
 const HeaderButton = styled(Button)`
   font-family: ${(props) => props.theme.font};
@@ -21,7 +22,9 @@ const HeaderToolbar = styled(Toolbar)`
 
 const ScrollContainer = styled.div`
   /* margin-top: 10px; */
-  width: 50%;
+  /* width: ${(props) => props.dimWidth * 0.9} + "px"; */
+  width: 2000px;
+  margin-left: -130px;
 `;
 
 const MatchCardsWrapper = styled.div`
@@ -35,6 +38,9 @@ const MatchCardsWrapper = styled.div`
 
 export default function Header() {
   const fixtures = useSelector((state) => state?.matches ?? {});
+  const [localFilter, setLocalFilter] = useState("ALL");
+  const dimWidth = window.innerWidth;
+  console.log(dimWidth);
   const routingData = [
     {
       label: "All Matches",
@@ -53,12 +59,25 @@ export default function Header() {
       href: "/upcomingFixtures",
     },
   ];
+
+  const matchFilters = [
+    ["All Matches", "ALL"],
+    ["Live Matches", "LIVE"],
+    ["Past Matches", "COMPLETED"],
+    ["Upcoming Fixtures", "UPCOMING"],
+  ];
+
+  const handleFilter = (status) => {
+    setLocalFilter(status);
+  };
+  console.log("hey");
+
   return (
     <AppBar>
       <HeaderToolbar>
         <div>
           Cricket Data
-          {routingData.map(({ label, href }) => (
+          {/* {routingData.map(({ label, href }) => (
             <HeaderButton
               {...{
                 key: label,
@@ -69,15 +88,28 @@ export default function Header() {
             >
               {label}
             </HeaderButton>
+          ))} */}
+          {matchFilters.map(([label, status]) => (
+            <HeaderButton
+              {...{ color: "inherit" }}
+              onClick={() => setLocalFilter(status)}
+            >
+              {label}
+            </HeaderButton>
           ))}
         </div>
 
         <div style={{ color: "black" }}>
-          <ScrollContainer>
+          <ScrollContainer dimWidth>
             <ScrollMenu
-              data={Object.values(fixtures).map((fixture) => (
-                <MatchPreviewCard matchDetails={fixture} />
-              ))}
+              data={Object.values(fixtures)
+                .filter(
+                  (fixture) =>
+                    fixture.status === localFilter || localFilter === "ALL"
+                )
+                .map((fixture) => (
+                  <MatchPreviewCard matchDetails={fixture} />
+                ))}
             />
           </ScrollContainer>
         </div>
