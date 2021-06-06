@@ -18,6 +18,16 @@ const MatchCardsWrapper = styled.div`
   background-color: rgb(200, 0, 0); */
 `;
 
+const ScreenHeader = styled.div`
+  display: flex;
+  font-size: 25px;
+  font-weight: 600;
+  font-family: "Dosis";
+  padding-top: 13px;
+  padding-left: 13px;
+  padding-bottom: 5px;
+`;
+
 const ChildItem = styled.div`
   height: 20em;
   width: 20em;
@@ -32,23 +42,21 @@ function App() {
   useEffect(() => {
     // const options = {
     //   method: "GET",
-    //   url: "https://cricket-live-data.p.rapidapi.com/fixtures-by-date/2021-06-05",
+    //   url: "https://cricket-live-data.p.rapidapi.com/fixtures-by-date/2021-06-06",
     //   headers: {
     //     "x-rapidapi-key": token,
     //     "x-rapidapi-host": "cricket-live-data.p.rapidapi.com",
     //   },
     // };
-
     // axios
     //   .request(options)
     //   .then((res) => {
     //     // console.log(res);
     //     setIsLoaded(true);
-    //     console.log(res.data);
-    //     setFixtures(res.data);
+    //     console.log(res.data.results);
+    //     setFixtures(res.data.results);
     //   })
     //   .catch((err) => console.error(err));
-
     setFixtures([
       {
         id: 2529193,
@@ -134,13 +142,13 @@ function App() {
         },
       },
     ]);
-
     // fetch(`https://cricket.sportmonks.com/api/v2.0/scores?api_token=${token}`)
     //   .then((res) => res.json())
     //   .then((result) => console.log(result));
   }, []);
   return (
     <div>
+      <ScreenHeader> Upcoming Fixtures </ScreenHeader>
       <MatchCardsWrapper>
         {fixtures.map((fixture) => (
           <MatchPreviewCard matchDetails={fixture}> hello </MatchPreviewCard>

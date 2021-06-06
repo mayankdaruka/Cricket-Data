@@ -4,8 +4,8 @@ import ImageIcon from "@material-ui/icons/Image";
 const MatchCard = styled.div`
   display: flex;
   flex-direction: column;
-  height: 16.5em;
-  width: 25.235em;
+  height: 16.1em;
+  width: 25em;
   margin: 10px;
   border-radius: 0.5em;
   background: rgb(235, 235, 235);
