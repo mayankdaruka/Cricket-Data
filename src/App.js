@@ -5,25 +5,29 @@ import { token } from "./token";
 import axios from "axios";
 import styled from "styled-components";
 import MatchPreviewCard from "./components/MatchPreviewCard";
+import Header from "./components/Header";
+import ScrollMenu from "react-horizontal-scrolling-menu";
 import { matchFixtures } from "./fixturesExampleData";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 
 const MatchCardsWrapper = styled.div`
   display: flex;
-  /* align-items: stretch; */
   align-content: flex-start; // How to align all lines when there is extra space in container
   /* justify-content: space-around; // How to align items on individual line */
   flex-direction: row; // Specify direction that the flex items are displayed in
   flex-wrap: wrap;
-  /* width: 10em; */
-  /* height: 300px;
-  background-color: rgb(200, 0, 0); */
+`;
+
+const ScrollContainer = styled.div`
+  background-color: #f1c9ff;
+  margin-top: 42px;
 `;
 
 const ScreenHeader = styled.div`
   display: flex;
   font-size: 25px;
   font-weight: 600;
-  font-family: "Dosis";
   padding-top: 13px;
   padding-left: 13px;
   padding-bottom: 5px;
@@ -61,12 +65,22 @@ function App() {
   }, []);
   return (
     <div>
-      <ScreenHeader> Upcoming Fixtures </ScreenHeader>
-      <MatchCardsWrapper>
+      {/* <ScreenHeader> Upcoming Fixtures </ScreenHeader> */}
+      <Header />
+      <ScrollContainer>
+        <ScrollMenu
+          data={fixtures.map((fixture) => (
+            <MatchPreviewCard matchDetails={fixture} />
+          ))}
+          // arrowLeft={<ArrowBackIosIcon />}
+          // arrowRight={<ArrowForwardIosIcon />}
+        />
+      </ScrollContainer>
+      {/* <MatchCardsWrapper>
         {fixtures.map((fixture) => (
           <MatchPreviewCard matchDetails={fixture}> hello </MatchPreviewCard>
         ))}
-      </MatchCardsWrapper>
+      </MatchCardsWrapper> */}
     </div>
   );
 }

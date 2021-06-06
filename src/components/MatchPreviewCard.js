@@ -11,6 +11,7 @@ const MatchCard = styled.div`
   border-radius: 0.5em;
   background: rgb(235, 235, 235);
   font-family: ${(props) => props.theme.font};
+  flex-shrink: 0;
   &:hover {
     background-color: #dbdbdb;
     transition-duration: 0.4s;
@@ -170,90 +171,88 @@ export default function MatchPreviewCard({ matchDetails }) {
   };
 
   return (
-    <ThemeProvider theme={{ font: "Dosis", color: "#9b02a1" }}>
-      <MatchCard>
-        <MatchTitle>
-          {matchDetails.series.name.length > 95
-            ? matchDetails.series.name.substring(0, 90) + "..."
-            : matchDetails.series.name}
-        </MatchTitle>
-        <MatchSubTitle>
-          {matchDetails.status + ", "}
-          <MatchDateTime>
-            {month} {matchDate.getUTCDate()} {matchDate.getFullYear() + ", "}
-          </MatchDateTime>
-          <MatchDateTime>{time}</MatchDateTime>
-        </MatchSubTitle>
-        <MatchFlagsAndButton>
-          <MatchFlags>
-            {[matchDetails.homeTeam, matchDetails.awayTeam].map((team) => (
-              <FlagNamesGrid>
-                <div style={{ justifySelf: "center" }}>
-                  {countryCodeMap?.[team.name] ? (
-                    <img
-                      src={`https://www.countryflags.io/${
-                        countryCodeMap[team.name]
-                      }/shiny/64.png`}
-                    />
-                  ) : (
-                    <NoImageAvailable>
-                      <ImageIcon />
-                    </NoImageAvailable>
-                  )}
+    <MatchCard onClick={() => console.log("clicking")}>
+      <MatchTitle>
+        {matchDetails.series.name.length > 95
+          ? matchDetails.series.name.substring(0, 90) + "..."
+          : matchDetails.series.name}
+      </MatchTitle>
+      <MatchSubTitle>
+        {matchDetails.status + ", "}
+        <MatchDateTime>
+          {month} {matchDate.getUTCDate()} {matchDate.getFullYear() + ", "}
+        </MatchDateTime>
+        <MatchDateTime>{time}</MatchDateTime>
+      </MatchSubTitle>
+      <MatchFlagsAndButton>
+        <MatchFlags>
+          {[matchDetails.homeTeam, matchDetails.awayTeam].map((team) => (
+            <FlagNamesGrid>
+              <div style={{ justifySelf: "center" }}>
+                {countryCodeMap?.[team.name] ? (
+                  <img
+                    src={`https://www.countryflags.io/${
+                      countryCodeMap[team.name]
+                    }/shiny/64.png`}
+                  />
+                ) : (
+                  <NoImageAvailable>
+                    <ImageIcon />
+                  </NoImageAvailable>
+                )}
+              </div>
+              <div
+                style={{
+                  textAlign: "left",
+                  fontWeight: 600,
+                }}
+              >
+                <div style={{ display: "inline-block", marginRight: "5px" }}>
+                  {team.name}
                 </div>
-                <div
-                  style={{
-                    textAlign: "left",
-                    fontWeight: 600,
-                  }}
-                >
-                  <div style={{ display: "inline-block", marginRight: "5px" }}>
-                    {team.name}
+                {matchDetails.status === "LIVE" && team.isBatting && (
+                  <div style={{ display: "inline-block" }}>
+                    <SportsCricketIcon />
                   </div>
-                  {matchDetails.status === "LIVE" && team.isBatting && (
-                    <div style={{ display: "inline-block" }}>
-                      <SportsCricketIcon />
-                    </div>
-                  )}
-                </div>
-              </FlagNamesGrid>
-            ))}
-          </MatchFlags>
-          {/* <DetailsItem>
+                )}
+              </div>
+            </FlagNamesGrid>
+          ))}
+        </MatchFlags>
+        {/* <DetailsItem>
             <DetailsButton>See Match Details</DetailsButton>
           </DetailsItem> */}
-          {matchDetails.scores ? (
-            <ScoresContainer>
-              <MatchScoreDetails>
-                <MatchScore>
-                  {matchDetails.scores.homeScore ?? "Yet to Bat"}
-                </MatchScore>
-                <MatchOvers>
-                  {matchDetails.scores.homeOvers ?? "Yet to Bat"}
-                </MatchOvers>
-              </MatchScoreDetails>
-              <MatchScoreDetails>
-                <MatchScore>
-                  {matchDetails.scores.awayScore ?? "Yet to Bat"}
-                </MatchScore>
-                <MatchOvers>
-                  {matchDetails.scores.awayOvers ?? "Yet to Bat"}
-                </MatchOvers>
-              </MatchScoreDetails>
-            </ScoresContainer>
-          ) : (
-            <ScoresContainer>
-              <MatchOvers>Yet to Bat</MatchOvers>
-              <MatchOvers>Yet to Bat</MatchOvers>
-            </ScoresContainer>
-          )}
-        </MatchFlagsAndButton>
-        {matchDetails.matchSummaryText ? (
-          <MatchResult>{matchDetails.matchSummaryText}</MatchResult>
+        {matchDetails.scores ? (
+          <ScoresContainer>
+            <MatchScoreDetails>
+              <MatchScore>
+                {matchDetails.scores.homeScore ?? "Yet to Bat"}
+              </MatchScore>
+              <MatchOvers>
+                {matchDetails.scores.homeOvers ?? "Yet to Bat"}
+              </MatchOvers>
+            </MatchScoreDetails>
+            <MatchScoreDetails>
+              <MatchScore>
+                {matchDetails.scores.awayScore ?? "Yet to Bat"}
+              </MatchScore>
+              <MatchOvers>
+                {matchDetails.scores.awayOvers ?? "Yet to Bat"}
+              </MatchOvers>
+            </MatchScoreDetails>
+          </ScoresContainer>
         ) : (
-          <MatchResult> Match starts at {time} </MatchResult>
+          <ScoresContainer>
+            <MatchOvers>Yet to Bat</MatchOvers>
+            <MatchOvers>Yet to Bat</MatchOvers>
+          </ScoresContainer>
         )}
-      </MatchCard>
-    </ThemeProvider>
+      </MatchFlagsAndButton>
+      {matchDetails.matchSummaryText ? (
+        <MatchResult>{matchDetails.matchSummaryText}</MatchResult>
+      ) : (
+        <MatchResult> Match starts at {time} </MatchResult>
+      )}
+    </MatchCard>
   );
 }
