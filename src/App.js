@@ -5,6 +5,7 @@ import { token } from "./token";
 import axios from "axios";
 import styled from "styled-components";
 import MatchPreviewCard from "./components/MatchPreviewCard";
+import { matchFixtures } from "./fixturesExampleData";
 
 const MatchCardsWrapper = styled.div`
   display: flex;
@@ -40,23 +41,23 @@ function App() {
   const [fixtures, setFixtures] = useState([]);
 
   useEffect(() => {
-    const options = {
-      method: "GET",
-      url: "https://dev132-cricket-live-scores-v1.p.rapidapi.com/matches.php",
-      params: { upcomingLimit: "5", inprogresslimit: "5", completedlimit: "5" },
-      headers: {
-        "x-rapidapi-key": token,
-        "x-rapidapi-host": "dev132-cricket-live-scores-v1.p.rapidapi.com",
-      },
-    };
-
-    axios
-      .request(options)
-      .then((res) => {
-        setFixtures(res.data.matchList.matches);
-        setIsLoaded(true);
-      })
-      .catch((err) => console.error(err));
+    // const options = {
+    //   method: "GET",
+    //   url: "https://dev132-cricket-live-scores-v1.p.rapidapi.com/matches.php",
+    //   params: { upcomingLimit: "5", inprogresslimit: "5", completedlimit: "5" },
+    //   headers: {
+    //     "x-rapidapi-key": token,
+    //     "x-rapidapi-host": "dev132-cricket-live-scores-v1.p.rapidapi.com",
+    //   },
+    // };
+    // axios
+    //   .request(options)
+    //   .then((res) => {
+    //     setFixtures(res.data.matchList.matches);
+    //     setIsLoaded(true);
+    //   })
+    //   .catch((err) => console.error(err));
+    setFixtures(matchFixtures);
   }, []);
   return (
     <div>
