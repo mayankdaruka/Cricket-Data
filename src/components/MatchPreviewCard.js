@@ -90,9 +90,20 @@ const NoImageAvailable = styled.div`
   /* vertical-align: middle; */
 `;
 
+const MatchDateTime = styled.div`
+  color: ${(props) => props.theme.color};
+  padding-left: 4px;
+`;
+
 export default function MatchPreviewCard({ matchDetails }) {
   const matchDate = new Date(matchDetails.date);
   const month = matchDate.toLocaleString("default", { month: "long" });
+  const hours = matchDate.getHours();
+  const minutes = matchDate.getMinutes();
+  const amOrPm = hours >= 12 ? "PM" : "AM";
+  const time = `${hours % 12}:${
+    minutes < 10 ? "0" + minutes : minutes
+  } ${amOrPm}`;
 
   // Figure out what to do for West Indies
   const countryCodeMap = {
@@ -121,10 +132,10 @@ export default function MatchPreviewCard({ matchDetails }) {
         </MatchTitle>
         <MatchSubTitle>
           {matchDetails.match_subtitle + ", "}
-          <div style={{ color: "#009954", paddingLeft: "4px" }}>
-            {month} {matchDate.getUTCDate()} {matchDate.getFullYear()}
-          </div>
-          {/* </div> */}
+          <MatchDateTime>
+            {month} {matchDate.getUTCDate()} {matchDate.getFullYear() + ", "}
+          </MatchDateTime>
+          <MatchDateTime>{time}</MatchDateTime>
         </MatchSubTitle>
         <MatchFlagsAndButton>
           <MatchFlags>
@@ -149,7 +160,11 @@ export default function MatchPreviewCard({ matchDetails }) {
             <DetailsButton>See Match Details</DetailsButton>
           </DetailsItem>
         </MatchFlagsAndButton>
-        <MatchResult> {matchDetails.result} </MatchResult>
+        <MatchResult>
+          {matchDetails.result.startsWith("Starts at")
+            ? "Match yet to begin"
+            : matchDetails.result}
+        </MatchResult>
       </MatchCard>
     </ThemeProvider>
   );
