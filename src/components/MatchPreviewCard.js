@@ -1,10 +1,11 @@
 import styled, { ThemeProvider } from "styled-components";
+import ImageIcon from "@material-ui/icons/Image";
 
 const MatchCard = styled.div`
   display: flex;
   flex-direction: column;
-  height: 17em;
-  width: 26em;
+  height: 16.5em;
+  width: 25.235em;
   margin: 10px;
   border-radius: 0.5em;
   background: rgb(235, 235, 235);
@@ -17,7 +18,7 @@ const MatchTitle = styled.div`
   vertical-align: bottom;
   flex: 1;
   font-weight: 800;
-  padding: 10px;
+  padding: 7px;
   font-size: 20px;
 `;
 
@@ -30,17 +31,63 @@ const MatchSubTitle = styled.div`
   font-size: 18px;
 `;
 
-const MatchDate = styled.div`
-  flex: 2;
-  /* background-color: brown; */
-  font-weight: 600;
-  justify-content: center;
-  font-size: 18px;
-  vertical-align: middle;
+const MatchFlagsAndButton = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex: 3;
+  /* background-color: aliceblue; */
 `;
 
-const MatchResult = styled.div`
+const MatchFlags = styled.div`
   flex: 2;
+  display: flex;
+  flex-direction: column;
+`;
+
+const DetailsItem = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const DetailsButton = styled.button`
+  /* background-color: ${(props) => props.theme.color}; */
+  background-color: white;
+  height: 4em;
+  width: 7em;
+  border: 2px solid;
+  border-color: ${(props) => props.theme.color};
+  border-radius: 4px;
+  &:hover {
+    background-color: ${(props) => props.theme.color};
+    transition-duration: 0.4s;
+  }
+  &:active {
+    transform: scale(0.93);
+  }
+`;
+const MatchResult = styled.div`
+  flex: 1;
+  font-weight: 600;
+  padding-left: 10px;
+  padding-top: 5px;
+  color: ${(props) => props.theme.color};
+`;
+
+const FlagNamesGrid = styled.div`
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  align-items: center;
+  /* flex-grow: 1; */
+`;
+
+const NoImageAvailable = styled.div`
+  height: 44px;
+  width: 64px;
+  background-color: rgba(200, 200, 200);
+  /* vertical-align: middle; */
 `;
 
 export default function MatchPreviewCard({ matchDetails }) {
@@ -58,19 +105,50 @@ export default function MatchPreviewCard({ matchDetails }) {
     Ireland: "IE",
     Bangladesh: "BD",
     "Sri Lanka": "LK",
+    "United States": "US",
     Afghanistan: "AF",
     Netherlands: "NL",
     Zimbabwe: "ZW",
   };
 
   return (
-    <ThemeProvider theme={{ font: "Dosis" }}>
+    <ThemeProvider theme={{ font: "Dosis", color: "#009954" }}>
       <MatchCard>
-        <MatchTitle> {matchDetails.match_title} </MatchTitle>
-        <MatchSubTitle> {matchDetails.match_subtitle} </MatchSubTitle>
-        <MatchDate>
-          {month} {matchDate.getUTCDate()} {matchDate.getFullYear()}
-        </MatchDate>
+        <MatchTitle>
+          {matchDetails.match_title.length > 95
+            ? matchDetails.match_title.substring(0, 90) + "..."
+            : matchDetails.match_title}
+        </MatchTitle>
+        <MatchSubTitle>
+          {matchDetails.match_subtitle + ", "}
+          <div style={{ color: "#009954", paddingLeft: "4px" }}>
+            {month} {matchDate.getUTCDate()} {matchDate.getFullYear()}
+          </div>
+          {/* </div> */}
+        </MatchSubTitle>
+        <MatchFlagsAndButton>
+          <MatchFlags>
+            {[matchDetails.home.name, matchDetails.away.name].map((name) => (
+              <FlagNamesGrid>
+                <div style={{ justifySelf: "center" }}>
+                  {countryCodeMap?.[name] ? (
+                    <img
+                      src={`https://www.countryflags.io/${countryCodeMap[name]}/shiny/64.png`}
+                    />
+                  ) : (
+                    <NoImageAvailable>
+                      <ImageIcon />
+                    </NoImageAvailable>
+                  )}
+                </div>
+                <div style={{ textAlign: "left", fontWeight: 600 }}>{name}</div>
+              </FlagNamesGrid>
+            ))}
+          </MatchFlags>
+          <DetailsItem>
+            <DetailsButton>See Match Details</DetailsButton>
+          </DetailsItem>
+        </MatchFlagsAndButton>
         <MatchResult> {matchDetails.result} </MatchResult>
       </MatchCard>
     </ThemeProvider>

@@ -14,8 +14,8 @@ const MatchCardsWrapper = styled.div`
   flex-direction: row; // Specify direction that the flex items are displayed in
   flex-wrap: wrap;
   /* width: 10em; */
-  height: 300px;
-  background-color: rgb(200, 0, 0);
+  /* height: 300px;
+  background-color: rgb(200, 0, 0); */
 `;
 
 const ChildItem = styled.div`
@@ -141,7 +141,6 @@ function App() {
   }, []);
   return (
     <div>
-      hey
       <MatchCardsWrapper>
         {fixtures.map((fixture) => (
           <MatchPreviewCard matchDetails={fixture}> hello </MatchPreviewCard>
