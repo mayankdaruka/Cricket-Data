@@ -5,8 +5,8 @@ import SportsCricketIcon from "@material-ui/icons/SportsCricket";
 const MatchCard = styled.div`
   display: flex;
   flex-direction: column;
-  height: 16.1em;
-  width: 25em;
+  height: 14em;
+  width: 23em;
   margin: 10px;
   border-radius: 0.5em;
   background: rgb(235, 235, 235);
@@ -30,23 +30,23 @@ const MatchTitle = styled.div`
   padding-top: 7px;
   padding-left: 7px;
   padding-right: 7px;
-  font-size: 20px;
+  font-size: 19px;
 `;
 
 const MatchSubTitle = styled.div`
   display: flex;
-  flex: 1;
+  flex: 0.5;
   align-items: center;
   font-weight: 700;
   justify-content: center;
-  font-size: 18px;
+  font-size: 17px;
+  padding-bottom: 5px;
 `;
 
 const MatchFlagsAndButton = styled.div`
   display: flex;
   flex-direction: row;
   flex: 3;
-  /* background-color: aliceblue; */
 `;
 
 const MatchFlags = styled.div`
@@ -63,7 +63,6 @@ const DetailsItem = styled.div`
 `;
 
 const DetailsButton = styled.button`
-  /* background-color: ${(props) => props.theme.color}; */
   background-color: white;
   height: 4em;
   width: 7em;
@@ -92,7 +91,6 @@ const MatchScore = styled.div`
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  /* color: ${(props) => props.theme.color}; */
   font-size: 18px;
 `;
 

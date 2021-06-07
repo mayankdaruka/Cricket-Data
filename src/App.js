@@ -10,6 +10,8 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { addMatchesBatch } from "./actions/index";
 import { useDispatch, useSelector } from "react-redux";
+import { withStyles } from "@material-ui/styles";
+import TabHeader from "./components/TabHeader";
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -39,6 +41,7 @@ function App() {
   return (
     <div>
       <Header />
+      <TabHeader />
       {/* <ScrollContainer>
         <ScrollMenu
           data={Object.values(fixtures).map((fixture) => (

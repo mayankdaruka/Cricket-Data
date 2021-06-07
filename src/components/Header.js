@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { AppBar, Toolbar, Button } from "@material-ui/core";
-import { Link as RouterLink } from "react-router-dom";
 import { useSelector, useStore } from "react-redux";
 import MatchPreviewCard from "./MatchPreviewCard";
 import ScrollMenu from "react-horizontal-scrolling-menu";
@@ -17,14 +16,13 @@ const HeaderToolbar = styled(Toolbar)`
   /* display: flex;
   flex-direction: column; */
   display: grid;
-  grid-template-rows: 3em 18em;
+  grid-template-rows: 3em 16.2em;
 `;
 
 const ScrollContainer = styled.div`
   /* margin-top: 10px; */
-  /* width: ${(props) => props.dimWidth * 0.9} + "px"; */
   width: 2000px;
-  margin-left: -130px;
+  margin-left: -160px;
 `;
 
 const MatchCardsWrapper = styled.div`
@@ -42,26 +40,6 @@ export default function Header() {
   const filteredFixtures = Object.values(fixtures).filter(
     (fixture) => fixture.status === localFilter || localFilter === "ALL"
   );
-  const dimWidth = window.innerWidth;
-  console.log(dimWidth);
-  const routingData = [
-    {
-      label: "All Matches",
-      href: "/allMatches",
-    },
-    {
-      label: "Live Matches",
-      href: "/liveMatches",
-    },
-    {
-      label: "Past Matches",
-      href: "/pastMatches",
-    },
-    {
-      label: "Upcoming Fixtures",
-      href: "/upcomingFixtures",
-    },
-  ];
 
   const matchFilters = [
     ["All Matches", "ALL"],
@@ -71,22 +49,9 @@ export default function Header() {
   ];
 
   return (
-    <AppBar>
+    <AppBar position="sticky">
       <HeaderToolbar>
         <div>
-          Cricket Data
-          {/* {routingData.map(({ label, href }) => (
-            <HeaderButton
-              {...{
-                key: label,
-                color: "inherit",
-                to: href,
-                component: RouterLink, // Should not use <Link> outside of <Router>
-              }}
-            >
-              {label}
-            </HeaderButton>
-          ))} */}
           {matchFilters.map(([label, status]) => (
             <HeaderButton
               {...{ color: "inherit" }}
@@ -104,7 +69,7 @@ export default function Header() {
         </div>
 
         <div style={{ color: "black" }}>
-          <ScrollContainer dimWidth>
+          <ScrollContainer>
             <ScrollMenu
               data={filteredFixtures.map((fixture) => (
                 <MatchPreviewCard matchDetails={fixture} />
