@@ -21,8 +21,14 @@ const HeaderToolbar = styled(Toolbar)`
 
 const ScrollContainer = styled.div`
   /* margin-top: 10px; */
-  width: 2000px;
-  margin-left: -160px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  width: 77em;
+  /* margin-left: -160px; */
+  display: flex;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const MatchCardsWrapper = styled.div`
@@ -70,11 +76,14 @@ export default function Header() {
 
         <div style={{ color: "black" }}>
           <ScrollContainer>
-            <ScrollMenu
+            {/* <ScrollMenu
               data={filteredFixtures.map((fixture) => (
                 <MatchPreviewCard matchDetails={fixture} />
               ))}
-            />
+            /> */}
+            {filteredFixtures.map((fixture) => (
+              <MatchPreviewCard matchDetails={fixture} />
+            ))}
           </ScrollContainer>
         </div>
       </HeaderToolbar>
