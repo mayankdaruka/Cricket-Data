@@ -23,12 +23,24 @@ const ScrollContainer = styled.div`
   /* margin-top: 10px; */
   overflow-x: scroll;
   overflow-y: hidden;
-  width: 77em;
+  width: 97vw;
   /* margin-left: -160px; */
   display: flex;
   &::-webkit-scrollbar {
-    display: none;
+    width: 10px;
+    height: 10px;
+    /* background-color: #000000; */
+    /* overflow: overlay; */
+    /* width: 100px; */
+    /* background-color: rgba(218, 0, 227, 0.4); */
   }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(218, 0, 227, 0.4);
+    border-radius: 6px;
+  }
+  /* &::-webkit-scrollbar-track {
+    background-color: white;
+  } */
 `;
 
 const MatchCardsWrapper = styled.div`
