@@ -12,11 +12,14 @@ import { addMatchesBatch } from "./actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import { withStyles } from "@material-ui/styles";
 import TabHeader from "./components/TabHeader";
+import { scorecard } from "./scorecardExampleData";
+import Scorecard from "./components/Scorecard";
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const dispatch = useDispatch();
   const fixtures = useSelector((state) => state?.matches ?? {});
+  const innings = scorecard.fullScorecard.innings;
 
   useEffect(() => {
     // const options = {
@@ -35,6 +38,7 @@ function App() {
     //     setIsLoaded(true);
     //   })
     //   .catch((err) => console.error(err));
+
     dispatch(addMatchesBatch(matchFixtures));
     // setFixtures(matchFixtures);
   }, []);
@@ -42,6 +46,15 @@ function App() {
     <div>
       <Header />
       <TabHeader />
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Scorecard inning={innings[0]} />
+      </div>
       {/* <ScrollContainer>
         <ScrollMenu
           data={Object.values(fixtures).map((fixture) => (
