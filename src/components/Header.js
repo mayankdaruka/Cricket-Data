@@ -38,19 +38,22 @@ const ScrollContainer = styled.div`
     background: rgba(218, 0, 227, 0.4);
     border-radius: 6px;
   }
+  /* &::-webkit-scrollbar-thumb :active {
+    background: rgba(236, 12, 245, 0.4);
+  } */
   /* &::-webkit-scrollbar-track {
     background-color: white;
   } */
 `;
 
-const MatchCardsWrapper = styled.div`
-  display: flex;
-  align-content: flex-start; // How to align all lines when there is extra space in container
-  /* justify-content: space-around; // How to align items on individual line */
-  flex-direction: row; // Specify direction that the flex items are displayed in
-  flex-wrap: wrap;
-  margin-top: 42px;
-`;
+// const MatchCardsWrapper = styled.div`
+//   display: flex;
+//   align-content: flex-start; // How to align all lines when there is extra space in container
+//   /* justify-content: space-around; // How to align items on individual line */
+//   flex-direction: row; // Specify direction that the flex items are displayed in
+//   flex-wrap: wrap;
+//   margin-top: 42px;
+// `;
 
 export default function Header() {
   const fixtures = useSelector((state) => state?.matches ?? {});
@@ -67,7 +70,7 @@ export default function Header() {
   ];
 
   return (
-    <AppBar position="sticky">
+    <AppBar position="">
       <HeaderToolbar>
         <div>
           {matchFilters.map(([label, status]) => (
