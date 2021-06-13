@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Divider from "@material-ui/core/Divider";
 
 const TeamType = styled.div`
   display: flex;
@@ -18,13 +19,16 @@ export default function ScoreAttributes({ batting }) {
     ? ["R", "B", "4s", "6s", "SR"]
     : ["O", "M", "R", "W", "ECON", "WD", "NB"];
   return (
-    <TeamType>
-      <div style={{ flex: batting ? 6 : 4, marginLeft: "10px" }}>
-        {batting ? "BATTING" : "BOWLING"}
-      </div>
-      {stats.map((stat) => (
-        <div style={{ flex: 1 }}> {stat} </div>
-      ))}
-    </TeamType>
+    <div>
+      <TeamType>
+        <div style={{ flex: batting ? 6 : 4, marginLeft: "10px" }}>
+          {batting ? "BATTING" : "BOWLING"}
+        </div>
+        {stats.map((stat) => (
+          <div style={{ flex: 1 }}> {stat} </div>
+        ))}
+      </TeamType>
+      {/* <Divider variant="middle" style={{}} /> */}
+    </div>
   );
 }

@@ -37,7 +37,7 @@ const MatchSubTitle = styled.div`
   display: flex;
   flex: 0.5;
   align-items: center;
-  font-weight: 700;
+  font-weight: 500;
   justify-content: center;
   font-size: 17px;
   padding-bottom: 5px;

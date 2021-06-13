@@ -6,7 +6,7 @@ const PlayerRow = styled.div`
   display: flex;
   flex-direction: row;
   font-family: ${(props) => props.theme.font};
-  font-weight: 800;
+  font-weight: 500;
   height: 40px;
   vertical-align: middle;
   flex-wrap: nowrap;
@@ -18,6 +18,7 @@ const PlayerRow = styled.div`
 const PlayerName = styled.div`
   flex: 3;
   margin-left: 10px;
+  font-weight: 600;
   color: ${(props) => props.theme.color};
 `;
 

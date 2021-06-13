@@ -7,7 +7,7 @@ const ScoreContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 70vw;
-  background-color: aliceblue;
+  background-color: rgb(250, 250, 250);
   /* border-radius: 10px; */
   margin: 20px;
   /* align-items: center;
@@ -20,7 +20,7 @@ const InningsTitle = styled.div`
   justify-content: center;
   background-color: ${(props) => props.theme.color3};
   font-family: ${(props) => props.theme.font};
-  font-weight: 800;
+  font-weight: 600;
   height: 60px;
   border-radius: 8px;
 `;
