@@ -14,7 +14,12 @@ let store = createStore(scoresReducer);
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider
-      theme={{ font: "Dosis", color: "#9b02a1", secondaryColor: "#d800e0" }}
+      theme={{
+        font: "Dosis",
+        color: "#9b02a1",
+        color2: "#d800e0",
+        color3: "#fcabff",
+      }}
     >
       <Provider store={store}>
         <Router>

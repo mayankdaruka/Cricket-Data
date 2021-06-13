@@ -11,7 +11,7 @@ const HeaderButton = styled(Button)`
 `;
 
 const HeaderTabToolbar = styled(Toolbar)`
-  background-color: ${(props) => props.theme.secondaryColor};
+  background-color: ${(props) => props.theme.color2};
 `;
 
 const LogoTitle = styled.div`
