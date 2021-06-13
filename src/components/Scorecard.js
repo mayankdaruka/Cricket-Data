@@ -10,6 +10,8 @@ const ScoreContainer = styled.div`
   background-color: rgb(250, 250, 250);
   /* border-radius: 10px; */
   margin: 20px;
+  box-shadow: 0 0 6px rgb(195, 195, 195);
+  border-radius: 8px;
   /* align-items: center;
   justify-content: center; */
 `;
@@ -22,7 +24,7 @@ const InningsTitle = styled.div`
   font-family: ${(props) => props.theme.font};
   font-weight: 600;
   height: 60px;
-  border-radius: 8px;
+  border-radius: 8px 8px 0px 0px;
 `;
 
 const TeamType = styled.div`
