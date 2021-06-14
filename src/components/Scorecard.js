@@ -44,6 +44,15 @@ const FallOfWickets = styled.div`
   margin: 10px;
 `;
 
+const TotalScoreDetails = styled.div`
+  font-size: 24px;
+  font-weight: 800;
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  background-color: rgb(240, 240, 240);
+`;
+
 export default function Scorecard({ inning }) {
   return (
     <ScoreContainer>
@@ -53,6 +62,13 @@ export default function Scorecard({ inning }) {
       {inning.batsmen.map((playerDetails) => (
         <PlayerStats playerDetails={playerDetails} />
       ))}
+      <TotalScoreDetails>
+        <div style={{ flex: 3 }}>TOTAL</div>
+        <div style={{ flex: 3 }}>
+          ({inning.over} ov, RR: {inning.runRate})
+        </div>
+        <div style={{ flex: 5 }}>{inning.run} Runs</div>
+      </TotalScoreDetails>
       <FallOfWickets>
         <span style={{ fontWeight: 800 }}>Fall of Wickets:</span>
         {inning.batsmen.map(
