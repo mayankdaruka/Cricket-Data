@@ -67,7 +67,9 @@ export default function Scorecard({ inning }) {
         <div style={{ flex: 3 }}>
           ({inning.over} ov, RR: {inning.runRate})
         </div>
-        <div style={{ flex: 5 }}>{inning.run} Runs</div>
+        <div style={{ flex: 5 }}>
+          {inning.run}/{inning.wicket}
+        </div>
       </TotalScoreDetails>
       <FallOfWickets>
         <span style={{ fontWeight: 800 }}>Fall of Wickets:</span>
@@ -75,8 +77,7 @@ export default function Scorecard({ inning }) {
           (playerDetails) =>
             playerDetails.fallOfWicket && (
               <span style={{ fontWeight: 500, fontSize: "17px" }}>
-                {" "}
-                {playerDetails.fallOfWicket} ({playerDetails.name},{" "}
+                {playerDetails.fallOfWicket} ({playerDetails.name},
                 {playerDetails.fallOfWicketOver}
                 {" ov"})
               </span>
