@@ -13,6 +13,7 @@ const PlayerRow = styled.div`
   vertical-align: middle;
   justify-content: center;
   align-items: center;
+  margin: 5px;
 `;
 
 const PlayerName = styled.div`
@@ -20,6 +21,7 @@ const PlayerName = styled.div`
   margin-left: 10px;
   font-weight: 600;
   color: ${(props) => props.theme.color};
+  font-size: 18px;
 `;
 
 export default function PlayerStats({ playerDetails }) {
@@ -48,9 +50,13 @@ export default function PlayerStats({ playerDetails }) {
         <PlayerName style={{ flex: batsman ? 3 : 4 }}>
           {playerDetails.name}
         </PlayerName>
-        {batsman && <div style={{ flex: 3 }}>{playerDetails.howOut}</div>}
+        {batsman && (
+          <div style={{ flex: 3, fontSize: "18px" }}>
+            {playerDetails.howOut.replaceAll(":", "")}
+          </div>
+        )}
         {details.map((stat) => (
-          <div style={{ flex: 1 }}> {stat} </div>
+          <div style={{ flex: 1, fontSize: "18px" }}> {stat} </div>
         ))}
         {/* </ListItem> */}
         {/* <Divider /> */}

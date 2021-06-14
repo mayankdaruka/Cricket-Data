@@ -12,6 +12,8 @@ const TeamType = styled.div`
   vertical-align: middle;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 0 5px rgb(160, 160, 160);
+  background-color: rgb(240, 240, 240);
 `;
 
 export default function ScoreAttributes({ batting }) {

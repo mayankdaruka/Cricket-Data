@@ -19,11 +19,14 @@ const ScoreContainer = styled.div`
 const InningsTitle = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
-  background-color: ${(props) => props.theme.color3};
+  /* justify-content: center; */
+  margin-left: 10px;
+  /* background-color: ${(props) => props.theme.color3}; */
   font-family: ${(props) => props.theme.font};
-  font-weight: 600;
+  color: ${(props) => props.theme.color};
+  font-weight: 800;
   height: 60px;
+  font-size: 25px;
   border-radius: 8px 8px 0px 0px;
 `;
 
@@ -36,6 +39,11 @@ const TeamType = styled.div`
   align-items: center;
 `;
 
+const FallOfWickets = styled.div`
+  /* height: 100px; */
+  margin: 10px;
+`;
+
 export default function Scorecard({ inning }) {
   return (
     <ScoreContainer>
@@ -45,6 +53,20 @@ export default function Scorecard({ inning }) {
       {inning.batsmen.map((playerDetails) => (
         <PlayerStats playerDetails={playerDetails} />
       ))}
+      <FallOfWickets>
+        <span style={{ fontWeight: 800 }}>Fall of Wickets:</span>
+        {inning.batsmen.map(
+          (playerDetails) =>
+            playerDetails.fallOfWicket && (
+              <span style={{ fontWeight: 500, fontSize: "17px" }}>
+                {" "}
+                {playerDetails.fallOfWicket} ({playerDetails.name},{" "}
+                {playerDetails.fallOfWicketOver}
+                {" ov"})
+              </span>
+            )
+        )}
+      </FallOfWickets>
       <ScoreAttributes batting={false}></ScoreAttributes>
       {inning.bowlers.map((playerDetails) => (
         <PlayerStats playerDetails={playerDetails} />
