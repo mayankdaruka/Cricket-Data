@@ -13,7 +13,8 @@ const PlayerRow = styled.div`
   vertical-align: middle;
   justify-content: center;
   align-items: center;
-  margin: 5px;
+  /* margin: 5px; */
+  margin: 5px 5px 5px 0px;
 `;
 
 const PlayerName = styled.div`
@@ -22,6 +23,12 @@ const PlayerName = styled.div`
   font-weight: 600;
   color: ${(props) => props.theme.color};
   font-size: 18px;
+`;
+
+const NotOutSymbol = styled.div`
+  width: 5px;
+  height: 40px;
+  background-color: ${(props) => props.theme.color3};
 `;
 
 export default function PlayerStats({ playerDetails }) {
@@ -46,6 +53,11 @@ export default function PlayerStats({ playerDetails }) {
   return (
     <div>
       <PlayerRow>
+        {playerDetails.howOut === "not out" ? (
+          <NotOutSymbol />
+        ) : (
+          <span style={{ marginLeft: "5px" }} />
+        )}
         {/* <ListItem> */}
         <PlayerName style={{ flex: batsman ? 3 : 4 }}>
           {playerDetails.name}

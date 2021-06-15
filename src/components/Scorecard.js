@@ -39,7 +39,7 @@ const TeamType = styled.div`
   align-items: center;
 `;
 
-const FallOfWickets = styled.div`
+const InfoContainer = styled.div`
   /* height: 100px; */
   margin: 10px;
 `;
@@ -59,9 +59,23 @@ export default function Scorecard({ inning }) {
       <InningsTitle>{inning.name.toUpperCase()}</InningsTitle>
       {/* <TeamType> BATTING </TeamType> */}
       <ScoreAttributes batting={true}></ScoreAttributes>
-      {inning.batsmen.map((playerDetails) => (
-        <PlayerStats playerDetails={playerDetails} />
-      ))}
+      {inning.batsmen
+        .filter((playerDetails) => playerDetails.howOut)
+        .map((playerDetails) => (
+          <PlayerStats playerDetails={playerDetails} />
+        ))}
+      <InfoContainer>
+        <span style={{ fontWeight: 800 }}> Did not Bat: </span>
+        {inning.batsmen
+          .filter((playerDetails) => !playerDetails.howOut)
+          .map((playerDetails, index, playersArr) => (
+            <span style={{ fontWeight: 500, fontSize: "17px" }}>
+              {" "}
+              {playerDetails.name}
+              {index < playersArr.length - 1 && ","}{" "}
+            </span>
+          ))}
+      </InfoContainer>
       <TotalScoreDetails>
         <div style={{ flex: 3 }}>TOTAL</div>
         <div style={{ flex: 3 }}>
@@ -71,19 +85,18 @@ export default function Scorecard({ inning }) {
           {inning.run}/{inning.wicket}
         </div>
       </TotalScoreDetails>
-      <FallOfWickets>
-        <span style={{ fontWeight: 800 }}>Fall of Wickets:</span>
-        {inning.batsmen.map(
-          (playerDetails) =>
-            playerDetails.fallOfWicket && (
-              <span style={{ fontWeight: 500, fontSize: "17px" }}>
-                {playerDetails.fallOfWicket} ({playerDetails.name},
-                {playerDetails.fallOfWicketOver}
-                {" ov"})
-              </span>
-            )
-        )}
-      </FallOfWickets>
+      <InfoContainer>
+        <span style={{ fontWeight: 800 }}>Fall of Wickets: </span>
+        {inning.batsmen
+          .filter((playerDetails) => playerDetails.fallOfWicket)
+          .map((playerDetails, index, playersArr) => (
+            <span style={{ fontWeight: 500, fontSize: "17px" }}>
+              {playerDetails.fallOfWicket} ({playerDetails.name},
+              {playerDetails.fallOfWicketOver}
+              {" ov"}){index < playersArr.length - 1 && ", "}
+            </span>
+          ))}
+      </InfoContainer>
       <ScoreAttributes batting={false}></ScoreAttributes>
       {inning.bowlers.map((playerDetails) => (
         <PlayerStats playerDetails={playerDetails} />
